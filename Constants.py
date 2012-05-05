@@ -2,7 +2,7 @@ MIDI_CC_TYPE = 1
 MIDI_NOTE_TYPE = 0
 
 RETURNS = 0
-CHANNEL = 1 # All things must be on one channel
+CHANNEL = 0 # All things must be on one channel
 
 # Transport
 PLAY = 69
