@@ -1,6 +1,7 @@
 import Live
 
 
+
 from Constants import *
 from _Framework.ControlSurface import ControlSurface
 from _Framework.InputControlElement import *
@@ -20,6 +21,8 @@ from _Livid_Framework.LividSessionComponent import LividSessionComponent
 from _Livid_Framework.LividTransportComponent import LividTransportComponent
 from _Livid_Framework.LividSessionZoomingComponent import LividSessionZoomingComponent
 from _Livid_Framework.LividControlSurface import LividControlSurface
+from _Livid_Framework.LividBlinker import LividBlinker
+from _Livid_Framework.LividVUMeter import LividVUMeter
 
 class Ohmicide(LividControlSurface):
   __module__ = __name__
@@ -27,11 +30,13 @@ class Ohmicide(LividControlSurface):
 
   def __init__(self, c_instance):
     LividControlSurface.__init__(self, c_instance)
-
     # setup_mixer, setup_session and setup_transport are automatically run
     # Anything else must be run here
 
-
+  def setup_custom(self):
+    self.blinker = LividBlinker(119)
+    #self.master_vu = LividVUMeter(118)
+  
   def setup_mixer(self):
     self.mixer = LividMixerComponent(faders = FADERS, sends = SENDS, 
         crossfader = CROSSFADER, 
