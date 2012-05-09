@@ -1,20 +1,6 @@
 import Live
 
-
-
 from Constants import *
-from _Framework.ControlSurface import ControlSurface
-from _Framework.InputControlElement import *
-from _Framework.SliderElement import SliderElement
-from _Framework.ButtonElement import ButtonElement
-from _Framework.EncoderElement import EncoderElement
-from _Framework.ButtonMatrixElement import ButtonMatrixElement
-from _Framework.MixerComponent import MixerComponent
-from _Framework.ClipSlotComponent import ClipSlotComponent
-from _Framework.ChannelStripComponent import ChannelStripComponent
-from _Framework.SceneComponent import SceneComponent
-from _Framework.SessionZoomingComponent import SessionZoomingComponent
-from _Framework.ChannelTranslationSelector import ChannelTranslationSelector
 
 from _Livid_Framework.LividMixerComponent import LividMixerComponent
 from _Livid_Framework.LividSessionComponent import LividSessionComponent
@@ -23,6 +9,7 @@ from _Livid_Framework.LividSessionZoomingComponent import LividSessionZoomingCom
 from _Livid_Framework.LividControlSurface import LividControlSurface
 from _Livid_Framework.LividBlinker import LividBlinker
 from _Livid_Framework.LividVUMeter import LividVUMeter
+from _Livid_Framework.MomentaryDeviceComponent import MomentaryDeviceComponent
 
 class Ohmicide(LividControlSurface):
   __module__ = __name__
@@ -34,8 +21,9 @@ class Ohmicide(LividControlSurface):
     # Anything else must be run here
 
   def setup_custom(self):
-    self.blinker = LividBlinker(119)
-    #self.master_vu = LividVUMeter(118)
+    self.blinker = LividBlinker(LOGO)
+    self.repeater = MomentaryDeviceComponent(name = "Repeats", buttons = REPEAT_BUTTONS)
+    self.master_vu = LividVUMeter(MASTER_VU, parent = self)
   
   def setup_mixer(self):
     self.mixer = LividMixerComponent(faders = FADERS, sends = SENDS, 
@@ -45,7 +33,6 @@ class Ohmicide(LividControlSurface):
         solos = SOLOS,
         selects = TRACK_SELECTS, 
         master_select = MASTER_SELECT, 
-        arms = ARMS,
         channel = CHANNEL)
         #mutes = MUTES)
   
@@ -62,5 +49,7 @@ class Ohmicide(LividControlSurface):
     # Session zoom
 
   def setup_transport(self):
-    self.transport = LividTransportComponent(play = PLAY, stop = STOP, bpm_up = BPM_UP, bpm_down = BPM_DOWN, channel = CHANNEL)
+    self.transport = LividTransportComponent(play = PLAY, stop = STOP, 
+        bpm_up = BPM_UP, bpm_down = BPM_DOWN, play_indicator = LIGHTS, 
+        channel = CHANNEL)
     
